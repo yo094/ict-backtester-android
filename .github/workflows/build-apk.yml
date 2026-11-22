@@ -34,8 +34,15 @@ jobs:
         with:
           gradle-version: '8.9'
 
+      
       - name: Extract project
         run: unzip -q ICT_Backtester_Android_Cloud_Build.zip
+
+      - name: Fix Kotlin progress property
+        run: |
+          sed -i '/private lateinit var webView: WebView/a\    private lateinit var progress: ProgressBar' ICT_Backtester_Android/app/src/main/java/com/ictbacktester/app/MainActivity.kt
+
+
 
       - name: Build APK
         run: gradle --no-daemon -p ICT_Backtester_Android assembleDebug
